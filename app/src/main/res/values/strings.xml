@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">UnsplashImageLoading</string>
+    <string name="error_loading_image">Error loading image</string>
+</resources>
