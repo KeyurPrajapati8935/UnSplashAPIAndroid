@@ -24,21 +24,17 @@ class MainActivity : AppCompatActivity() {
     private var isLoading = false
 
     private lateinit var progressBar: ProgressBar
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = ImageGridAdapter(this)
+        initView()
 
-        progressBar = findViewById(R.id.progress_bar)
-        val recyclerView = findViewById<RecyclerView>(R.id.image_grid)
-        layoutManager = GridLayoutManager(this, 3)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
+        setUpAdapter()
 
-        val viewModelFactory = ViewModelFactory()
-        viewModel = ViewModelProvider(this, viewModelFactory)[ImageViewModel::class.java]
+        setViewModelFactory()
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -56,6 +52,23 @@ class MainActivity : AppCompatActivity() {
         viewModelObservers()
 
         loadData()
+    }
+
+    private fun setViewModelFactory() {
+        val viewModelFactory = ViewModelFactory()
+        viewModel = ViewModelProvider(this, viewModelFactory)[ImageViewModel::class.java]
+    }
+
+    private fun setUpAdapter() {
+        adapter = ImageGridAdapter(this)
+        layoutManager = GridLayoutManager(this, 3)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
+
+    private fun initView() {
+        progressBar = findViewById(R.id.progress_bar)
+        recyclerView = findViewById(R.id.image_grid)
     }
 
     private fun viewModelObservers() {

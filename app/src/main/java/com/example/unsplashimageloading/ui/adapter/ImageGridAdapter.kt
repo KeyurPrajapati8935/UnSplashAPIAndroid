@@ -80,4 +80,6 @@ class ImageGridAdapter(private val activity: AppCompatActivity) :
     }
 
     override fun getItemCount(): Int = images.size
+
+    override fun getItemViewType(position: Int) = position
 }
